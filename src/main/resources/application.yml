@@ -1,0 +1,153 @@
+spring:
+  redis:
+    host: 106.53.251.246
+    port: 6379
+  #    cluster:
+  #      nodes: 106.53.251.246:7000,106.53.251.246:7001,106.53.251.246:7002
+  jpa:
+    hibernate:
+      #更新或创建数据表结构
+      ddl-auto: update
+      #显示sql
+      show-sql: true
+  #rabbitmq配置
+  rabbitmq:
+    host: 140.143.153.238
+    port: 5672
+    username: mall
+    password: mall
+    virtual-host: /
+  elasticsearch:
+    rest:
+      uris: 140.143.153.238:9200
+  mail:
+    host: smtp.qq.com
+    password: amgwrpgdbonedjdf
+    username: 2633600702@qq.com
+    properties: { mail.smtp.ssl.enable: true }
+
+  datasource:
+    druid:
+      ds0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://106.53.251.246:3307/ds_0
+        username: root
+        password: -WSY12140322150232
+      slave0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://106.53.251.246:3308/ds_0
+        username: root
+        password: -WSY12140322150232
+      ds1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://106.53.251.246:3307/ds_1
+        username: root
+        password: -WSY12140322150232
+      slave1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driverClassName: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://106.53.251.246:3308/ds_1
+        username: root
+        password: -WSY12140322150232
+      #      username: root
+      #      password: -wsy12140322150232
+      #      url: jdbc:mysql://106.53.251.246:3306/sbtest?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai
+      #      drive-class-name: com.mysql.jdbc.Driver
+      #      type: com.alibaba.druid.pool.DruidDataSource
+      #
+
+      initialSize: 1
+      minIdle: 3
+      maxActive: 20
+      #配置获取连接等待超时的时间
+      maxWait: 60000
+      #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      #配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: select 'x'
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      #打开PSCache，并且指定每个连接上PSCache的大小
+      poolPreparedStatements: true
+      maxPoolPreparedStatementPerConnection-size: 20
+      #配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,wall,slf4j
+      #通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      #合并多个DruidDataSource的监控数据
+      useGlobalDataSourceStat: true
+
+    ######Druid监控配置######
+#    #配置WebStatFilter
+#    web-stat-filter:
+#      exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+#    #配置StatViewServlet
+#    stat-view-servlet:
+#      login-username: admin
+#      login-password: 8080
+
+
+#    schema:
+#      - classpath:dp.sql
+#    initialization-mode: always
+mybatis:
+  mapper-locations:
+    - classpath:mybatis/mapper/*.xml
+  config-location: classpath:mybatis/mybatis-config.xml
+#  驼峰命名
+#  configuration:
+#    map-underscore-to-camel-case: true
+
+# 开启debug
+logging:
+  level:
+    com.dbs.controller: trace
+  file:
+    name: F:/hello.log
+  pattern:
+    file: '%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{50} - %msg%n'
+# 开启自动配置报告
+#debug: true
+
+own:
+  hello:
+    prefix: hello
+    suffix: nihao
+
+  #dubbo:
+  #  application:
+  #    name: dbs
+  #  registry:
+  #    address: 140.143.153.238:2181
+  #    protocal: zookeeper
+  #  scan:
+  #    base-packages: com.dbs.service
+  #    jest:
+#      uris: http://140.143.153.238:9200/
+management:
+  endpoint:
+    mappings:
+      enabled: true
+    beans:
+      enabled: true
+    info:
+      enabled: true
+    threaddump:
+      enabled: true
+    health:
+      enabled: true
+      show-details: always
+
+    #开启网页显示监控信息
+    web:
+      exposure:
+        include: '*'
+  health:
+    redis:
+      enabled: true
+
